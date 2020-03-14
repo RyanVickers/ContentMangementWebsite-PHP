@@ -7,7 +7,6 @@
 <body>
 
 <?php
-
 $username = $_POST['username'];
 $password = $_POST['password'];
 $confirmPass = $_POST['confirm'];
@@ -26,8 +25,8 @@ if ($password != $confirmPass) {
 }
 if ($valid) {
     $password = password_hash($password, PASSWORD_DEFAULT);
-    require_once 'db.php';
-    $sql = "SELECT * FROM users WHERE username = :username";
+    require_once 'database.php';
+    $sql = "SELECT * FROM admins WHERE username = :username";
     $cmd = $db->prepare($sql);
     $cmd->bindParam(':username', $username, PDO::PARAM_STR, 50);
     $cmd->execute();
@@ -42,7 +41,7 @@ if ($valid) {
         $cmd->execute();
     }
     $db = null;
-
+    header('location:login.php');
 }
 ?>
 
