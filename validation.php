@@ -20,7 +20,7 @@ if (!password_verify($password, $user['password'])) {
 } else {
     session_start();
     $_SESSION['adminsId'] = $user['adminsId'];
-    header('location:admins.php');
+    header('location:admin-list.php');
 }
 $db = null;
 
