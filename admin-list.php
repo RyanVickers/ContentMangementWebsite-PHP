@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Admins</title>
 </head>
 <body>
 <a href="logout.php">Logout</a>

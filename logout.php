@@ -6,9 +6,10 @@
 </head>
 <body>
 <?php
-session_start();
-session_unset();
-session_destroy();
+session_start();//enter user session
+session_unset();//unset variables
+session_destroy();//end session
+//redirect to login page
 header('location:login.php');
 ?>
 </body>

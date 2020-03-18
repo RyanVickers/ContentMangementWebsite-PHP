@@ -7,6 +7,7 @@
 <body>
 <h1>Login</h1>
 <?php
+//checks for invalid login
 if (!empty($_GET['invalid'])) {
     if ($_GET['invalid'] == "true") {
         echo '<div>Invalid Login</div>';
