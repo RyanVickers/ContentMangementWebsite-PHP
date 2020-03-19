@@ -13,7 +13,7 @@
     </fieldset>
     <fieldset>
         <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"/>
+        <input type="password" name="password" id="password"/>
     </fieldset>
     <fieldset>
         <label for="confirm">Confirm Password:</label>

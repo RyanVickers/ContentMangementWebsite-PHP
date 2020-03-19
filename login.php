@@ -6,6 +6,7 @@
 </head>
 <body>
 <h1>Login</h1>
+<a href="register.php">Register</a>
 <?php
 //checks for invalid login
 if (!empty($_GET['invalid'])) {
