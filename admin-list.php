@@ -27,11 +27,15 @@ foreach ($admins as $value) {
     } else {
         echo '<td>' . $value['username'] . '</td>';
     }
+    if (!empty($_SESSION['adminsId'])) {
+        echo '<td><a href="delete-admin.php?adminsId=' . $value['adminsId'] . '"
+            onclick="return confirmDelete();">Delete</a></td>';
+    }
     echo '</tr>';
 }
 echo '</table>';
 $db = null;
 ?>
-
+<script src="js/main.js" type="text/javascript"></script>
 </body>
 </html>
