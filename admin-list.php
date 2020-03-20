@@ -19,11 +19,12 @@ $cmd = $db->prepare($query);
 $cmd->execute();
 $admins = $cmd->fetchAll();
 
-echo '<table><thead><th>Email</th></thead>';
+echo '<table><thead><th>Email</th><th>Edit</th><th>Delete</th></th></thead>';
 foreach ($admins as $value) {
     echo '<tr>';
+    echo '<td>' . $value['username'] . '</td>';
     if (!empty($_SESSION['adminsId'])) {
-        echo '<td><a href="admin.php?adminId=' . $value['adminsId'] . '">' . $value['username'] . '</a></td>';
+        echo '<td><a href="admin.php?adminId=' . $value['adminsId'] . '">Edit</a></td>';
     } else {
         echo '<td>' . $value['username'] . '</td>';
     }
