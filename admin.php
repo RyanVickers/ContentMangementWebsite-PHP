@@ -6,19 +6,19 @@
 </head>
 <body>
 <?php
-
-if (empty($_SESSION['userId'])) {
+session_start();
+if (empty($_SESSION['adminsId'])) {
     header('location:login.php');
     exit();
 }
-$adminId = null;
+
 $username = null;
-if (!empty($_GET['adminId'])) {
-    $adminId = $_GET['adminId'];
-    require_once 'db.php';
-    $sql = "SELECT * FROM admins WHERE adminId = :adminId";
+if (!empty($_GET['adminsId'])) {
+    $adminsId = $_GET['adminsId'];
+    require_once 'database.php';
+    $sql = "SELECT * FROM admins WHERE adminsId = :adminsId";
     $cmd = $db->prepare($sql);
-    $cmd->bindParam(':adminId', $adminId, PDO::PARAM_INT);
+    $cmd->bindParam(':adminsId', $adminsId, PDO::PARAM_INT);
     $cmd->execute();
     $admin = $cmd->fetch();
     $username = $admin['username'];
@@ -29,10 +29,10 @@ if (!empty($_GET['adminId'])) {
 <h1>Admin Information</h1>
 <form action="save-admin.php" method="post">
     <fieldset>
-        <label for="email">Email:</label>
-        <input name="name" id="name" required value="<?php echo $username; ?>"/>
+        <label for="username">Username:</label>
+        <input name="username" id="username" required value="<?php echo $username; ?>"/>
     </fieldset>
-    <input name="adminId" id="adminId" value="<?php echo $adminId; ?>" type="hidden"/>
+    <input name="adminsId" id="adminsId" value="<?php echo $adminsId; ?>" type="hidden"/>
     <button>Save</button>
 </form>
 

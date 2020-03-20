@@ -24,7 +24,7 @@ foreach ($admins as $value) {
     echo '<tr>';
     echo '<td>' . $value['username'] . '</td>';
     if (!empty($_SESSION['adminsId'])) {
-        echo '<td><a href="admin.php?adminId=' . $value['adminsId'] . '">Edit</a></td>';
+        echo '<td><a href="admin.php?adminsId=' . $value['adminsId'] . '">Edit</a></td>';
     } else {
         echo '<td>' . $value['username'] . '</td>';
     }
