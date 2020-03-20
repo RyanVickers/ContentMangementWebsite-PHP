@@ -6,5 +6,32 @@
 </head>
 <body>
 <a href="logout.php">Logout</a>
+<h1>Admin List</h1>
+
+<?php
+session_start();
+if (!empty($_SESSION['adminsId'])) {
+    echo '<a href="register.php">Create a new Admin</a>';
+}
+require_once 'database.php';
+$query = "SELECT * FROM admins;";
+$cmd = $db->prepare($query);
+$cmd->execute();
+$admins = $cmd->fetchAll();
+
+echo '<table><thead><th>Email</th></thead>';
+foreach ($admins as $value) {
+    echo '<tr>';
+    if (!empty($_SESSION['adminsId'])) {
+        echo '<td><a href="admin.php?adminId=' . $value['adminsId'] . '">' . $value['username'] . '</a></td>';
+    } else {
+        echo '<td>' . $value['username'] . '</td>';
+    }
+    echo '</tr>';
+}
+echo '</table>';
+$db = null;
+?>
+
 </body>
 </html>
