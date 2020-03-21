@@ -18,23 +18,27 @@ $query = "SELECT * FROM admins;";
 $cmd = $db->prepare($query);
 $cmd->execute();
 $admins = $cmd->fetchAll();
-
-echo '<table><thead><th>Email</th><th>Edit</th><th>Delete</th></th></thead>';
-foreach ($admins as $value) {
-    echo '<tr>';
-    echo '<td>' . $value['username'] . '</td>';
-    if (!empty($_SESSION['adminsId'])) {
-        echo '<td><a href="admin.php?adminsId=' . $value['adminsId'] . '">Edit</a></td>';
-    } else {
+if (empty($_SESSION['adminsId'])) {
+    echo '<table><thead><th>Email</th></thead>';
+    foreach ($admins as $value) {
+        echo '<tr>';
         echo '<td>' . $value['username'] . '</td>';
+        echo '</tr>';
     }
+    echo '</table>';
+} else
     if (!empty($_SESSION['adminsId'])) {
-        echo '<td><a href="delete-admin.php?adminsId=' . $value['adminsId'] . '"
+        echo '<table><thead><th>Email</th><th>Edit</th><th>Delete</th></th></thead>';
+        foreach ($admins as $value) {
+            echo '<tr>';
+            echo '<td>' . $value['username'] . '</td>';
+            echo '<td><a href="admin.php?adminsId=' . $value['adminsId'] . '">Edit</a></td>';
+            echo '<td><a href="delete-admin.php?adminsId=' . $value['adminsId'] . '"
             onclick="return confirmDelete();">Delete</a></td>';
+            echo '</tr>';
+        }
+        echo '</table>';
     }
-    echo '</tr>';
-}
-echo '</table>';
 $db = null;
 ?>
 <script src="js/main.js" type="text/javascript"></script>
