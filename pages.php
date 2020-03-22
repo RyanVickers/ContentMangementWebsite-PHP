@@ -9,7 +9,7 @@ require_once 'authenticate.php';
 
 $pagename = null;
 $content = null;
-//checks if logged in
+
 if (!empty($_GET['pagesId'])) {
     $pagesId = $_GET['pagesId'];
     //connecting to database

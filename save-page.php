@@ -2,7 +2,7 @@
 $title = 'Save Page';
 require_once 'header.php';
 ?>
-<h1>Save Page</h1>
+    <h1>Save Page</h1>
 <?php
 
 //if not logged in sends back to login
@@ -24,12 +24,13 @@ if ($valid) {
     if (!empty($pagesId)) {
         $sql = "UPDATE pages SET pagename = :pagename, content = :content WHERE pagesId = :pagesId";
     } else {
-        $sql = "INSERT INTO pages (title, content) VALUES (:title, :content)";
+        if (empty($pagesId))
+            $sql = "INSERT INTO pages (pagename, content) VALUES (:pagename, :content)";
     }
 
     $cmd = $db->prepare($sql);
     $cmd->bindParam(':pagename', $pagename, PDO::PARAM_STR, 45);
-    $cmd->bindParam(':content', $content, PDO::PARAM_INT, 255);
+    $cmd->bindParam(':content', $content, PDO::PARAM_STR, 255);
 
     if (!empty($pagesId)) {
         $cmd->bindParam(':pagesId', $pagesId, PDO::PARAM_INT);
