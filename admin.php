@@ -6,16 +6,21 @@
 </head>
 <body>
 <?php
+//access session
 session_start();
+//if not logged in sends back to login
 if (empty($_SESSION['adminsId'])) {
     header('location:login.php');
     exit();
 }
 
 $username = null;
+//if logged in
 if (!empty($_GET['adminsId'])) {
     $adminsId = $_GET['adminsId'];
+    //connecting to database
     require_once 'database.php';
+    //getting usernames
     $sql = "SELECT * FROM admins WHERE adminsId = :adminsId";
     $cmd = $db->prepare($sql);
     $cmd->bindParam(':adminsId', $adminsId, PDO::PARAM_INT);

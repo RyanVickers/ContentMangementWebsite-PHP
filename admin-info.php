@@ -7,9 +7,10 @@
 <body>
 
 <h1>Admin Information</h1>
-
 <?php
+//getting username
 $username = $_POST['username'];
+//connecting to database
 require_once 'database.php';
 $sql = "SELECT * FROM admins WHERE username = :username";
 $cmd = $db->prepare($sql);
