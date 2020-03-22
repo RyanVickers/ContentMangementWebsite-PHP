@@ -1,3 +1,11 @@
+<?php
+require_once 'database.php';
+$query = "SELECT pagesId,pagename from pages;";
+$cmd = $db->prepare($query);
+$cmd->execute();
+$pages = $cmd->fetchAll();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,20 +23,21 @@
                 <li class="nav-item  active">
                     <a class="nav-link" href="admin-list.php">Admin List <span class="sr-only">(current)</span></a>
                 </li>
+                <?php
+                foreach ($pages as $value) {
+                    echo '<li class="nav-item active"><a class="nav-link" href="pages.php?pagesId=' . $value['pagesId'] . '">' . $value['pagename'] . '</a></li>';
+                }
+                ?>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <?php
                 session_start();
                 if (!empty($_SESSION['adminsId'])) {
-                    echo '<li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>',
-                    '<li class="nav-item"><a class="nav-link" href="control-panel.php">Control Panel</a></li>';
+                    echo '<li class="nav-item"><a class="nav-link" href="control-panel.php">Control Panel</a></li>',
+                    '<li class="nav-item active"><a class="nav-link" href="logout.php">Logout<span class="sr-only">(current)</span></a></li>';
                 } else {
-                    echo '<li class="nav-item">
-                        <a class="nav-link" href="register.php">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.php">Login</a>
-                    </li>';
+                    echo '<li class="nav-item"><a class="nav-link" href="register.php">Register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>';
                 }
                 ?>
             </ul>
