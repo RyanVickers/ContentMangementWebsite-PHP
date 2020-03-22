@@ -12,16 +12,22 @@ if (!empty($_SESSION['adminsId'])) {
     if (!empty($_GET['pagesId'])) {
         $pagesId = $_GET['pagesId'];
         //connecting to database
-        require_once 'database.php';
-        //getting usernames
-        $sql = "SELECT * FROM pages WHERE pagesId = :pagesId";
-        $cmd = $db->prepare($sql);
-        $cmd->bindParam(':pagesId', $pagesId, PDO::PARAM_INT);
-        $cmd->execute();
-        $page = $cmd->fetch();
-        $pagename = $page['pagename'];
-        $content = $page['content'];
-        $db = null;
+        try {
+            require_once 'database.php';
+            //getting usernames
+            $sql = "SELECT * FROM pages WHERE pagesId = :pagesId";
+            $cmd = $db->prepare($sql);
+            $cmd->bindParam(':pagesId', $pagesId, PDO::PARAM_INT);
+            $cmd->execute();
+            $page = $cmd->fetch();
+            $pagename = $page['pagename'];
+            $content = $page['content'];
+            $db = null;
+
+        } catch (Exception $e) {
+            header('location:error.php');
+            exit();
+        }
     }
     ?>
 
@@ -42,19 +48,23 @@ if (!empty($_SESSION['adminsId'])) {
 } else {
     $pagesId = $_GET['pagesId'];
 //connecting to database
-    require_once 'database.php';
+    try {
+        require_once 'database.php';
 //getting usernames
-    $sql = "SELECT * FROM pages WHERE pagesId = :pagesId";
-    $cmd = $db->prepare($sql);
-    $cmd->bindParam(':pagesId', $pagesId, PDO::PARAM_INT);
-    $cmd->execute();
-    $page = $cmd->fetch();
-    $pagename = $page['pagename'];
-    $content = $page['content'];
-    $db = null;
-    echo '<h1>' . $pagename . '</h1>';
-    echo '<main>' . $content . '</main>';
-
+        $sql = "SELECT * FROM pages WHERE pagesId = :pagesId";
+        $cmd = $db->prepare($sql);
+        $cmd->bindParam(':pagesId', $pagesId, PDO::PARAM_INT);
+        $cmd->execute();
+        $page = $cmd->fetch();
+        $pagename = $page['pagename'];
+        $content = $page['content'];
+        $db = null;
+        echo '<h1>' . $pagename . '</h1>';
+        echo '<main>' . $content . '</main>';
+    } catch (Exception $e) {
+        header('location:error.php');
+        exit();
+    }
 }
 require_once 'footer.php';
 ?>

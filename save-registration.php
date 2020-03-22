@@ -29,27 +29,32 @@ if ($password != $confirmPass) {
 if ($valid) {
     $password = password_hash($password, PASSWORD_DEFAULT);
     //connecting to DB
-    require_once 'database.php';
-    //check to see if duplicate usernames
-    $sql = "SELECT * FROM admins WHERE username = :username";
-    $cmd = $db->prepare($sql);
-    $cmd->bindParam(':username', $username, PDO::PARAM_STR, 50);
-    $cmd->execute();
-    $user = $cmd->fetch();
-    if (!empty($user)) {
-        echo 'Username already exists<br/>';
-    } else {
-        //inserting user and password into DB
-        $sql = "INSERT INTO admins (username, password) VALUES (:username, :password)";
+    try {
+        require_once 'database.php';
+        //check to see if duplicate usernames
+        $sql = "SELECT * FROM admins WHERE username = :username";
         $cmd = $db->prepare($sql);
         $cmd->bindParam(':username', $username, PDO::PARAM_STR, 50);
-        $cmd->bindParam(':password', $password, PDO::PARAM_STR, 255);
         $cmd->execute();
+        $user = $cmd->fetch();
+        if (!empty($user)) {
+            echo 'Username already exists<br/>';
+        } else {
+            //inserting user and password into DB
+            $sql = "INSERT INTO admins (username, password) VALUES (:username, :password)";
+            $cmd = $db->prepare($sql);
+            $cmd->bindParam(':username', $username, PDO::PARAM_STR, 50);
+            $cmd->bindParam(':password', $password, PDO::PARAM_STR, 255);
+            $cmd->execute();
+        }
+        //disconnect from DB
+        $db = null;
+        //redirect to login
+        header('location:login.php');
+    } catch (Exception $e) {
+        header('location:error.php');
+        exit();
     }
-    //disconnect from DB
-    $db = null;
-    //redirect to login
-    header('location:login.php');
 }
 ?>
 

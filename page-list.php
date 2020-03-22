@@ -12,36 +12,41 @@ if (!empty($_SESSION['adminsId'])) {
     echo '<a href="pages.php">Create Page</a>';
 }
 //connecting to database
-require_once 'database.php';
+try {
+    require_once 'database.php';
 //getting admins from database
-$query = "SELECT * FROM pages;";
-$cmd = $db->prepare($query);
-$cmd->execute();
-$pages = $cmd->fetchAll();
+    $query = "SELECT * FROM pages;";
+    $cmd = $db->prepare($query);
+    $cmd->execute();
+    $pages = $cmd->fetchAll();
 //if empty session only shows title
-if (empty($_SESSION['adminsId'])) {
-    echo '<table><thead><th>Title</th></thead>';
-    foreach ($pages as $value) {
-        echo '<tr>';
-        echo '<td>' . $value['pagename'] . '</td>';
-        echo '</tr>';
-    }
-    echo '</table>';
-} else
-    //if session isn't empty displays edit and delete links
-    if (!empty($_SESSION['adminsId'])) {
-        echo '<table><thead><th>Title</th><th>Edit</th><th>Delete</th></th></thead>';
+    if (empty($_SESSION['adminsId'])) {
+        echo '<table><thead><th>Title</th></thead>';
         foreach ($pages as $value) {
             echo '<tr>';
             echo '<td>' . $value['pagename'] . '</td>';
-            echo '<td><a href="pages.php?pagesId=' . $value['pagesId'] . '">Edit</a></td>';
-            echo '<td><a href="delete-page.php?pagesId=' . $value['pagesId'] . '"
-            onclick="return confirmDelete();">Delete</a></td>';
             echo '</tr>';
         }
         echo '</table>';
-    }
+    } else
+        //if session isn't empty displays edit and delete links
+        if (!empty($_SESSION['adminsId'])) {
+            echo '<table><thead><th>Title</th><th>Edit</th><th>Delete</th></th></thead>';
+            foreach ($pages as $value) {
+                echo '<tr>';
+                echo '<td>' . $value['pagename'] . '</td>';
+                echo '<td><a href="pages.php?pagesId=' . $value['pagesId'] . '">Edit</a></td>';
+                echo '<td><a href="delete-page.php?pagesId=' . $value['pagesId'] . '"
+            onclick="return confirmDelete();">Delete</a></td>';
+                echo '</tr>';
+            }
+            echo '</table>';
+        }
 //disconnect from database
-$db = null;
+    $db = null;
+} catch (Exception $e) {
+    header('location:error.php');
+    exit();
+}
 require_once 'footer.php';
 ?>

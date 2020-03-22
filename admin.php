@@ -12,15 +12,20 @@ $username = null;
 if (!empty($_GET['adminsId'])) {
     $adminsId = $_GET['adminsId'];
     //connecting to database
-    require_once 'database.php';
-    //getting usernames
-    $sql = "SELECT * FROM admins WHERE adminsId = :adminsId";
-    $cmd = $db->prepare($sql);
-    $cmd->bindParam(':adminsId', $adminsId, PDO::PARAM_INT);
-    $cmd->execute();
-    $admin = $cmd->fetch();
-    $username = $admin['username'];
-    $db = null;
+    try {
+        require_once 'database.php';
+        //getting usernames
+        $sql = "SELECT * FROM admins WHERE adminsId = :adminsId";
+        $cmd = $db->prepare($sql);
+        $cmd->bindParam(':adminsId', $adminsId, PDO::PARAM_INT);
+        $cmd->execute();
+        $admin = $cmd->fetch();
+        $username = $admin['username'];
+        $db = null;
+    } catch (Exception $e) {
+        header('location:error.php');
+        exit();
+    }
 }
 ?>
 

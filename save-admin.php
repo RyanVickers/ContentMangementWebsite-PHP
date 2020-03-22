@@ -19,19 +19,24 @@ if (empty($username)) {
 //if valid updates username in database
 if ($valid) {
     //connecting to database
-    require_once 'database.php';
-    if (!empty($adminsId)) {
-        $sql = "UPDATE admins SET username = :username WHERE adminsId = :adminsId";
-    }
+    try {
+        require_once 'database.php';
+        if (!empty($adminsId)) {
+            $sql = "UPDATE admins SET username = :username WHERE adminsId = :adminsId";
+        }
 
-    $cmd = $db->prepare($sql);
-    $cmd->bindParam(':username', $username, PDO::PARAM_STR, 50);
-    //binding admin id only if not empty
-    if (!empty($adminsId)) {
-        $cmd->bindParam(':adminsId', $adminsId, PDO::PARAM_INT);
+        $cmd = $db->prepare($sql);
+        $cmd->bindParam(':username', $username, PDO::PARAM_STR, 50);
+        //binding admin id only if not empty
+        if (!empty($adminsId)) {
+            $cmd->bindParam(':adminsId', $adminsId, PDO::PARAM_INT);
+        }
+        $cmd->execute();
+        $db = null;
+    } catch (Exception $e) {
+        header('location:error.php');
+        exit();
     }
-    $cmd->execute();
-    $db = null;
     echo '<h2>Admin Saved</h2>';
     //sends user to list page
     header('location:admin-list.php');

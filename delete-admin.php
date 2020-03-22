@@ -15,14 +15,20 @@ require_once 'authenticate.php';
 //storing admin id
 $adminsId = $_GET['adminsId'];
 //connecting to database
-require_once 'database.php';
+try {
+
+    require_once 'database.php';
 //deleting from database
-$sql = "DELETE FROM admins WHERE adminsId = :adminsId";
-$cmd = $db->prepare($sql);
-$cmd->bindParam(':adminsId', $adminsId, PDO::PARAM_INT);
-$cmd->execute();
+    $sql = "DELETE FROM admins WHERE adminsId = :adminsId";
+    $cmd = $db->prepare($sql);
+    $cmd->bindParam(':adminsId', $adminsId, PDO::PARAM_INT);
+    $cmd->execute();
 //disconnecting from database
-$db = null;
+    $db = null;
+} catch (Exception $e) {
+    header('location:error.php');
+    exit();
+}
 //redirect to admin list
 header('location:admin-list.php');
 ?>
