@@ -1,10 +1,13 @@
-<?php
-$title = 'Save Page';
-require_once 'header.php';
-?>
-    <h1>Save Page</h1>
-<?php
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Save page</title>
+</head>
+<body>
 
+<h1>save page</h1>
+<?php
+session_start();
 //if not logged in sends back to login
 require_once 'authenticate.php';
 $pagename = $_POST['pagename'];
@@ -16,29 +19,47 @@ $valid = true;
 if (empty($pagename)) {
     echo 'Title is required<br />';
     $valid = false;
+    if (empty($content)) {
+        echo 'Content is required<br />';
+        $valid = false;
+    }
 }
 //if valid updates title in database
 if ($valid) {
-    //connecting to database
-    require_once 'database.php';
-    if (empty($pagesId)) {
-        $sql = "UPDATE pages SET pagename = :pagename, content = :content WHERE pagesId = :pagesId";
-    } else {
-        $sql = "INSERT INTO pages (pagename, content) VALUES (:pagename, :content)";
-    }
+    try {
+        // connect to db
+        require_once 'database.php';
 
-    $cmd = $db->prepare($sql);
-    $cmd->bindParam(':pagename', $pagename, PDO::PARAM_STR, 45);
-    $cmd->bindParam(':content', $content, PDO::PARAM_STR, 255);
-    if (empty($pagesId)) {
-        $cmd->bindParam(':pagesId', $pagesId, PDO::PARAM_INT);
-    }
+        // adding or editing depending if we already have an artistId or not
+        if (empty($pagesId)) {
+            // set up the SQL INSERT command - use 3 paramter placeholders for the values (prefixed with :)
+            $sql = "INSERT INTO pages (pagename, content) VALUES (:pagename, :content)";
+        } else {
+            $sql = "UPDATE pages SET pagename = :pagename, content = :content WHERE pagesId = :pagesId";
+        }
 
-    $cmd->execute();
-    $db = null;
-    echo '<h2>Page Saved</h2>';
-    //sends user to list page
-    header('location:page-list.php');
+        // create a PDO command object and fill the parameters 1 at a time for type & safety checking
+        $cmd = $db->prepare($sql);
+        $cmd->bindParam(':pagename', $pagename, PDO::PARAM_STR, 50);
+        $cmd->bindParam(':content', $content, PDO::PARAM_STR);
+
+
+        // if we have an artistId, we need to bind the 4th parameter (but only if we have an id already)
+        if (!empty($pagesId)) {
+            $cmd->bindParam(':pagesId', $pagesId, PDO::PARAM_INT);
+        }
+
+        // try to send / save the data
+        $cmd->execute();
+
+        // disconnect
+        $db = null;
+
+        // show message to user
+        echo '<h2>Page Saved</h2>';
+        header('location:page-list.php');
+    } catch (Exception $e) {
+        header('location:error.php');
+        exit();
+    }
 }
-require_once 'footer.php';
-?>

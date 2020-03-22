@@ -4,27 +4,26 @@ require_once 'header.php';
 ?>
 <?php
 
-//if not logged in redirect to login
-require_once 'authenticate.php';
+if (!empty($_SESSION['adminsId'])) {
+    $pagesId = null;
+    $pagename = null;
+    $content = null;
 
-$pagename = null;
-$content = null;
-
-if (!empty($_GET['pagesId'])) {
-    $pagesId = $_GET['pagesId'];
-    //connecting to database
-    require_once 'database.php';
-    //getting usernames
-    $sql = "SELECT * FROM pages WHERE pagesId = :pagesId";
-    $cmd = $db->prepare($sql);
-    $cmd->bindParam(':pagesId', $pagesId, PDO::PARAM_INT);
-    $cmd->execute();
-    $page = $cmd->fetch();
-    $pagename = $page['pagename'];
-    $content = $page['content'];
-    $db = null;
-}
-?>
+    if (!empty($_GET['pagesId'])) {
+        $pagesId = $_GET['pagesId'];
+        //connecting to database
+        require_once 'database.php';
+        //getting usernames
+        $sql = "SELECT * FROM pages WHERE pagesId = :pagesId";
+        $cmd = $db->prepare($sql);
+        $cmd->bindParam(':pagesId', $pagesId, PDO::PARAM_INT);
+        $cmd->execute();
+        $page = $cmd->fetch();
+        $pagename = $page['pagename'];
+        $content = $page['content'];
+        $db = null;
+    }
+    ?>
 
     <h1>Page Information</h1>
     <form action="save-page.php" method="post">
@@ -39,6 +38,23 @@ if (!empty($_GET['pagesId'])) {
         <input name="pagesId" id="pagesId" value="<?php echo $pagesId; ?>" type="hidden"/>
         <button>Save</button>
     </form>
-<?php
+    <?php
+} else {
+    $pagesId = $_GET['pagesId'];
+//connecting to database
+    require_once 'database.php';
+//getting usernames
+    $sql = "SELECT * FROM pages WHERE pagesId = :pagesId";
+    $cmd = $db->prepare($sql);
+    $cmd->bindParam(':pagesId', $pagesId, PDO::PARAM_INT);
+    $cmd->execute();
+    $page = $cmd->fetch();
+    $pagename = $page['pagename'];
+    $content = $page['content'];
+    $db = null;
+    echo '<h1>' . $pagename . '</h1>';
+    echo '<main>' . $content . '</main>';
+
+}
 require_once 'footer.php';
 ?>
