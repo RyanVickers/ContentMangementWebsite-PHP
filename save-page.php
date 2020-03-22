@@ -21,20 +21,19 @@ if (empty($pagename)) {
 if ($valid) {
     //connecting to database
     require_once 'database.php';
-    if (!empty($pagesId)) {
+    if (empty($pagesId)) {
         $sql = "UPDATE pages SET pagename = :pagename, content = :content WHERE pagesId = :pagesId";
     } else {
-        if (empty($pagesId))
-            $sql = "INSERT INTO pages (pagename, content) VALUES (:pagename, :content)";
+        $sql = "INSERT INTO pages (pagename, content) VALUES (:pagename, :content)";
     }
 
     $cmd = $db->prepare($sql);
     $cmd->bindParam(':pagename', $pagename, PDO::PARAM_STR, 45);
     $cmd->bindParam(':content', $content, PDO::PARAM_STR, 255);
-
-    if (!empty($pagesId)) {
+    if (empty($pagesId)) {
         $cmd->bindParam(':pagesId', $pagesId, PDO::PARAM_INT);
     }
+
     $cmd->execute();
     $db = null;
     echo '<h2>Page Saved</h2>';
