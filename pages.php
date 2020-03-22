@@ -7,7 +7,8 @@ require_once 'header.php';
 //if not logged in redirect to login
 require_once 'authenticate.php';
 
-$username = null;
+$pagename = null;
+$content = null;
 //checks if logged in
 if (!empty($_GET['pagesId'])) {
     $pagesId = $_GET['pagesId'];
@@ -19,16 +20,21 @@ if (!empty($_GET['pagesId'])) {
     $cmd->bindParam(':pagesId', $pagesId, PDO::PARAM_INT);
     $cmd->execute();
     $page = $cmd->fetch();
-    $pagename = $page['title'];
+    $pagename = $page['pagename'];
+    $content = $page['content'];
     $db = null;
 }
 ?>
 
-    <h1>Admin Information</h1>
+    <h1>Page Information</h1>
     <form action="save-page.php" method="post">
         <fieldset>
-            <label for="title">Title:</label>
-            <input name="tilte" id="title" required value="<?php echo $pagename; ?>"/>
+            <label for="pagename">Title:</label>
+            <input name="pagename" id="pagename" required value="<?php echo $pagename; ?>"/>
+        </fieldset>
+        <fieldset>
+            <label for="content">Content:</label>
+            <input name="content" id="content" required value="<?php echo $content; ?>"/>
         </fieldset>
         <input name="pagesId" id="pagesId" value="<?php echo $pagesId; ?>" type="hidden"/>
         <button>Save</button>

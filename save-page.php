@@ -1,19 +1,19 @@
 <?php
-$title = 'Save Admin';
+$title = 'Save Page';
 require_once 'header.php';
 ?>
-<h1>Save Admin</h1>
+<h1>Save Page</h1>
 <?php
-//accessing session
-session_start();
+
 //if not logged in sends back to login
 require_once 'authenticate.php';
-$pagename = htmlspecialchars($_POST['title']);
+$pagename = $_POST['pagename'];
+$content = htmlspecialchars($_POST['content']);
 $pagesId = $_POST['pagesId'];
-echo $title;
+echo $pagename;
 //validation
 $valid = true;
-if (empty($title)) {
+if (empty($pagename)) {
     echo 'Title is required<br />';
     $valid = false;
 }
@@ -22,12 +22,15 @@ if ($valid) {
     //connecting to database
     require_once 'database.php';
     if (!empty($pagesId)) {
-        $sql = "UPDATE pages SET title = :title WHERE pagesId = :pagesId";
+        $sql = "UPDATE pages SET pagename = :pagename, content = :content WHERE pagesId = :pagesId";
+    } else {
+        $sql = "INSERT INTO pages (title, content) VALUES (:title, :content)";
     }
 
     $cmd = $db->prepare($sql);
-    $cmd->bindParam(':title', $title, PDO::PARAM_STR, 45);
-    //binding page id only if not empty
+    $cmd->bindParam(':pagename', $pagename, PDO::PARAM_STR, 45);
+    $cmd->bindParam(':content', $content, PDO::PARAM_INT, 255);
+
     if (!empty($pagesId)) {
         $cmd->bindParam(':pagesId', $pagesId, PDO::PARAM_INT);
     }

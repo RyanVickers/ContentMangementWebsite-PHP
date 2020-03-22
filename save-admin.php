@@ -4,12 +4,9 @@ require_once 'header.php';
 ?>
 <h1>Save Admin</h1>
 <?php
-//accessing session
-session_start();
+
 //if not logged in sends back to login
 require_once 'authenticate.php';
-
-
 $username = htmlspecialchars($_POST['username']);
 $adminsId = $_POST['adminsId'];
 echo $username;
