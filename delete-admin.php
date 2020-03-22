@@ -10,10 +10,8 @@
 //access session
 session_start();
 //if not logged in sends back to login
-if (empty($_SESSION['adminsId'])) {
-    header('location:login.php');
-    exit();
-}
+require_once 'authenticate.php';
+
 //storing admin id
 $adminsId = $_GET['adminsId'];
 //connecting to database

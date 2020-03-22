@@ -20,7 +20,8 @@
                 <?php
                 session_start();
                 if (!empty($_SESSION['adminsId'])) {
-                    echo '<li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>';
+                    echo '<li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>',
+                    '<li class="nav-item"><a class="nav-link" href="control-panel.php">Control Panel</a></li>';
                 } else {
                     echo '<li class="nav-item">
                         <a class="nav-link" href="register.php">Register</a>

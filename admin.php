@@ -5,10 +5,7 @@ require_once 'header.php';
 <?php
 
 //if not logged in sends back to login
-if (empty($_SESSION['adminsId'])) {
-    header('location:login.php');
-    exit();
-}
+require_once 'authenticate.php';
 
 $username = null;
 //if logged in

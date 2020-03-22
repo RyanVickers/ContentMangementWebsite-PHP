@@ -6,11 +6,9 @@ require_once 'header.php';
 <?php
 //accessing session
 session_start();
-//if  ot logged in sends back to login
-if (empty($_SESSION['adminsId'])) {
-    header('location:login.php');
-    exit();
-}
+//if not logged in sends back to login
+require_once 'authenticate.php';
+
 
 $username = htmlspecialchars($_POST['username']);
 $adminsId = $_POST['adminsId'];

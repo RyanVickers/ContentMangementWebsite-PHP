@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<?php
+$title = 'index.php';
+require_once 'header.php';
+?>
+<?php
+require_once 'footer.php';
+?>
