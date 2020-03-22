@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin</title>
-</head>
-<body>
 <?php
-//access session
-session_start();
+$title = 'Admin';
+require_once 'header.php';
+?>
+<?php
+
 //if not logged in sends back to login
 if (empty($_SESSION['adminsId'])) {
     header('location:login.php');
@@ -31,15 +27,15 @@ if (!empty($_GET['adminsId'])) {
 }
 ?>
 
-<h1>Admin Information</h1>
-<form action="save-admin.php" method="post">
-    <fieldset>
-        <label for="username">Username:</label>
-        <input name="username" id="username" required value="<?php echo $username; ?>"/>
-    </fieldset>
-    <input name="adminsId" id="adminsId" value="<?php echo $adminsId; ?>" type="hidden"/>
-    <button>Save</button>
-</form>
-
-</body>
-</html>
+    <h1>Admin Information</h1>
+    <form action="save-admin.php" method="post">
+        <fieldset>
+            <label for="username">Username:</label>
+            <input name="username" id="username" required value="<?php echo $username; ?>"/>
+        </fieldset>
+        <input name="adminsId" id="adminsId" value="<?php echo $adminsId; ?>" type="hidden"/>
+        <button>Save</button>
+    </form>
+<?php
+require_once 'footer.php';
+?>

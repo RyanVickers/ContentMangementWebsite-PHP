@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
-<h1>Login</h1>
-<a href="register.php">Register</a>
+<?php
+$title = 'Login';
+require_once 'header.php';
+?>
+    <h1>Login</h1>
+    <a href="register.php">Register</a>
 <?php
 //checks for invalid login
 if (!empty($_GET['invalid'])) {
@@ -33,6 +30,6 @@ if (!empty($_GET['invalid'])) {
         <input type="submit" value="Login"/>
     </div>
 </form>
-
-</body>
-</html>
+<?php
+require_once 'footer.php';
+?>

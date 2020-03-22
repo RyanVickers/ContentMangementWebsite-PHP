@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Save Admin</title>
-</head>
-<body>
-
+<?php
+$title = 'Save Admin';
+require_once 'header.php';
+?>
 <h1>Save Admin</h1>
 <?php
 //accessing session
@@ -45,8 +41,5 @@ if ($valid) {
     //sends user to list page
     header('location:admin-list.php');
 }
-
+require_once 'footer.php';
 ?>
-
-</body>
-</html>

@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admins</title>
-</head>
-<body>
-<a href="logout.php">Logout</a>
+<?php
+$title = 'Admin List';
+require_once 'header.php';
+?>
+
 <h1>Admin List</h1>
 
 <?php
-//accessing session
-session_start();
+
 //if not logged in display register link
 if (!empty($_SESSION['adminsId'])) {
     echo '<a href="register.php">Create a new Admin</a>';
@@ -47,7 +43,6 @@ if (empty($_SESSION['adminsId'])) {
     }
 //disconnect from database
 $db = null;
+require_once 'footer.php';
 ?>
-<script src="js/main.js" type="text/javascript"></script>
-</body>
-</html>
+
