@@ -8,6 +8,8 @@
 
 <h1>Admin Information</h1>
 <?php
+session_start();
+require_once 'authenticate.php';
 //getting username
 $username = $_POST['username'];
 //connecting to database

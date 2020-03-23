@@ -6,7 +6,7 @@ require_once 'header.php';
     <h1>Page List</h1>
 
 <?php
-
+require_once 'authenticate.php';
 //if not logged in display register link
 if (!empty($_SESSION['adminsId'])) {
     echo '<a href="pages.php">Create Page</a>';

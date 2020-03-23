@@ -1,5 +1,5 @@
 <?php
-$title = 'index.php';
+$title = 'index';
 require_once 'header.php';
 ?>
 <?php

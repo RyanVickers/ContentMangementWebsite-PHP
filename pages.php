@@ -1,9 +1,16 @@
 <?php
-$title = 'pages';
+require_once 'database.php';
+if (!empty($_GET['pagesId'])) {
+    $pagesId = $_GET['pagesId'];
+}
+$sql = "SELECT pagename FROM pages WHERE pagesId = :pagesId";
+$cmd = $db->prepare($sql);
+$cmd->bindParam(':pagesId', $pagesId, PDO::PARAM_INT);
+$cmd->execute();
+$page = $cmd->fetch();
+$pagename = $page['pagename'];
+$title = $pagename;
 require_once 'header.php';
-?>
-<?php
-
 if (!empty($_SESSION['adminsId'])) {
     $pagesId = null;
     $pagename = null;
@@ -28,7 +35,9 @@ if (!empty($_SESSION['adminsId'])) {
             header('location:error.php');
             exit();
         }
+
     }
+
     ?>
 
     <h1>Page Information</h1>
