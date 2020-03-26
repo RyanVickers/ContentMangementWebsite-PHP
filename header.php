@@ -22,14 +22,13 @@ try {
 <body>
 <main>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <img class="navbar-brand" src="logos/logo.png" alt="logo.png" href="index.php">
+        <a href="index.php"><img class="navbar-brand" src="logos/logo.png" alt="Logo"></a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
 
                 <?php
                 session_start();
                 if (empty($_SESSION['adminsId'])) {
-                    echo '<li class="nav-item  active"><a class="nav-link" href="admin-list.php">Admin List <span class="sr-only">(current)</span></a></li>';
                     foreach ($pages as $value) {
                         echo '<li class="nav-item active"><a class="nav-link" href="pages.php?pagesId=' . $value['pagesId'] . '">' . $value['pagename'] . '</a></li>';
 

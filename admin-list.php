@@ -6,7 +6,7 @@ require_once 'header.php';
 <h1>Admin List</h1>
 
 <?php
-
+require_once 'authenticate.php';
 //if not logged in display register link
 if (!empty($_SESSION['adminsId'])) {
     echo '<a href="register.php">Create Administrator</a>';

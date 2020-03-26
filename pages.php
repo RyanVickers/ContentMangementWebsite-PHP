@@ -1,15 +1,17 @@
 <?php
+$title = 'Create page';
 require_once 'database.php';
 if (!empty($_GET['pagesId'])) {
     $pagesId = $_GET['pagesId'];
+
+    $sql = "SELECT pagename FROM pages WHERE pagesId = :pagesId";
+    $cmd = $db->prepare($sql);
+    $cmd->bindParam(':pagesId', $pagesId, PDO::PARAM_INT);
+    $cmd->execute();
+    $page = $cmd->fetch();
+    $pagename = $page['pagename'];
+    $title = $pagename;
 }
-$sql = "SELECT pagename FROM pages WHERE pagesId = :pagesId";
-$cmd = $db->prepare($sql);
-$cmd->bindParam(':pagesId', $pagesId, PDO::PARAM_INT);
-$cmd->execute();
-$page = $cmd->fetch();
-$pagename = $page['pagename'];
-$title = $pagename;
 require_once 'header.php';
 if (!empty($_SESSION['adminsId'])) {
     $pagesId = null;
@@ -21,7 +23,7 @@ if (!empty($_SESSION['adminsId'])) {
         //connecting to database
         try {
             require_once 'database.php';
-            //getting usernames
+            //getting pages
             $sql = "SELECT * FROM pages WHERE pagesId = :pagesId";
             $cmd = $db->prepare($sql);
             $cmd->bindParam(':pagesId', $pagesId, PDO::PARAM_INT);

@@ -1,5 +1,7 @@
 <?php
+//setting title
 $title = 'Admin';
+//getting header
 require_once 'header.php';
 ?>
 <?php
@@ -39,5 +41,6 @@ if (!empty($_GET['adminsId'])) {
         <button>Save</button>
     </form>
 <?php
+//getting footer
 require_once 'footer.php';
 ?>

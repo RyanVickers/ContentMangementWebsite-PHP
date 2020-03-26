@@ -21,6 +21,7 @@ if ($valid) {
     //connecting to database
     try {
         require_once 'database.php';
+        //if not empty admin updates admins username
         if (!empty($adminsId)) {
             $sql = "UPDATE admins SET username = :username WHERE adminsId = :adminsId";
         }

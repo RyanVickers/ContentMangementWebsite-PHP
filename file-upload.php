@@ -5,7 +5,6 @@ require_once 'authenticate.php';
 require_once 'footer.php'
 ?>
 
-
 <?php
 $file = $_FILES['logo'];
 $name = $file['name'];
@@ -27,3 +26,4 @@ if (!empty($file['tmp_name'])) {
 header('location:file-search.php');
 
 ?>
+
