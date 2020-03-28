@@ -9,13 +9,13 @@ require_once 'authenticate.php';
         <meta charset="UTF-8">
         <title>File Search</title>
     </head>
-    <body>
-    <form method="post" action="file-upload.php" enctype="multipart/form-data">
+    <body id="logoPage">
+    <form id="logoForm" method="post" action="file-upload.php" enctype="multipart/form-data">
         <fieldset>
-            <label for="logo">Upload Logo:</label>
+            <label id="logoLabel" for="logo">Upload Logo to Website</label><br/>
             <input name="logo" id="logo" type="file"/>
         </fieldset>
-        <button>Submit</button>
+        <button class="btn btn-primary">Submit</button>
     </form>
     </body>
     </html>

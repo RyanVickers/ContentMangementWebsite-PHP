@@ -15,9 +15,13 @@ try {
 <head>
     <meta charset="UTF-8">
     <title><?php echo $title; ?></title>
+    <link rel="stylesheet" href="css/styles.css"/>
+    <!--  Link to custom icon stylesheet  -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/styles.css"/>
+
 </head>
 <body>
 <main>
@@ -44,11 +48,11 @@ try {
                 <?php
 
                 if (!empty($_SESSION['adminsId'])) {
-                    echo '<li class="nav-item active"><a class="nav-link" href="control-panel.php">Control Panel</a></li>',
-                    '<li class="nav-item"><a class="nav-link" href="logout.php">Logout<span class="sr-only">(current)</span></a></li>';
+                    echo '<li class="nav-item active"><a class="nav-link fas fa-tools" href="control-panel.php"> Control Panel</a></li>',
+                    '<li class="nav-item"><a class="fas fa-sign-in-alt nav-link" href="logout.php"> Logout<span class="sr-only">(current)</span></a></li>';
                 } else {
-                    echo '<li class="nav-item"><a class="nav-link" href="register.php">Register</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>';
+                    echo '<li class="nav-item"><a class="nav-link far fa-user" href="register.php"> Register</a></li>
+                    <li class="nav-item "><a class="nav-link fas fa-sign-in-alt" href="login.php"> Login</a></li>';
                 }
                 ?>
             </ul>

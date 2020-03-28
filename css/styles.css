@@ -2,3 +2,66 @@
     width: 150px;
     height: 75px;
 }
+
+#createPage {
+    border-radius: 0;
+}
+
+#createAdmin {
+    border-radius: 0;
+}
+
+#listPage {
+    text-align: center;
+    margin: 5px;
+}
+
+#listAdmin {
+    text-align: center;
+    margin: 5px;
+}
+
+#logoPage {
+    text-align: center;
+    background-color: grey;
+}
+
+#logoForm {
+    color: white;
+
+}
+
+#logoLabel {
+    font-size: 40px;
+    margin-top: 10px;
+}
+
+.btn-primary {
+    width: 25%;
+    margin-top: 15px;
+}
+
+#content {
+    width: 50%;
+    margin: 20px;
+}
+
+#pageName {
+    width: 50%;
+    margin: 20px;
+    text-align: center;
+}
+
+#register, #login, #editAdmin {
+    width: 25%;
+    margin: 20px;
+}
+
+#loginHeader, #registerHeader {
+    text-align: center;
+}
+
+#editPages {
+    margin: 20px;
+}
+

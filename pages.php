@@ -1,16 +1,21 @@
 <?php
 $title = 'Create page';
-require_once 'database.php';
-if (!empty($_GET['pagesId'])) {
-    $pagesId = $_GET['pagesId'];
+try {
+    require_once 'database.php';
+    if (!empty($_GET['pagesId'])) {
+        $pagesId = $_GET['pagesId'];
 
-    $sql = "SELECT pagename FROM pages WHERE pagesId = :pagesId";
-    $cmd = $db->prepare($sql);
-    $cmd->bindParam(':pagesId', $pagesId, PDO::PARAM_INT);
-    $cmd->execute();
-    $page = $cmd->fetch();
-    $pagename = $page['pagename'];
-    $title = $pagename;
+        $sql = "SELECT pagename FROM pages WHERE pagesId = :pagesId";
+        $cmd = $db->prepare($sql);
+        $cmd->bindParam(':pagesId', $pagesId, PDO::PARAM_INT);
+        $cmd->execute();
+        $page = $cmd->fetch();
+        $pagename = $page['pagename'];
+        $title = $pagename;
+    }
+} catch (Exception $e) {
+    header('location:error.php');
+    exit();
 }
 require_once 'header.php';
 if (!empty($_SESSION['adminsId'])) {
@@ -41,20 +46,27 @@ if (!empty($_SESSION['adminsId'])) {
     }
 
     ?>
-
-    <h1>Page Information</h1>
-    <form action="save-page.php" method="post">
-        <fieldset>
-            <label for="pagename">Title:</label>
-            <input name="pagename" id="pagename" required value="<?php echo $pagename; ?>"/>
-        </fieldset>
-        <fieldset>
-            <label for="content">Content:</label>
-            <input name="content" id="content" required value="<?php echo $content; ?>"/>
-        </fieldset>
-        <input name="pagesId" id="pagesId" value="<?php echo $pagesId; ?>" type="hidden"/>
-        <button>Save</button>
-    </form>
+    <div id="editPages">
+        <h1>Page Information</h1>
+        <form action="save-page.php" method="post">
+            <fieldset>
+                <div class="form-group">
+                    <label for="pagename">Title:</label>
+                    <input class="form-control" name="pagename" id="pageName" required
+                           value="<?php echo $pagename; ?>"/>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form-group">
+                    <label for="content">Content:</label>
+                    <textarea class="form-control" name="content" id="content" rows="4"
+                              cols="50"><?php echo $content; ?></textarea>
+                </div>
+            </fieldset>
+            <input name="pagesId" id="pagesId" value="<?php echo $pagesId; ?>" type="hidden"/>
+            <button class="sv btn btn-primary">Save Page</button>
+        </form>
+    </div>
     <?php
 } else {
     $pagesId = $_GET['pagesId'];
@@ -70,8 +82,8 @@ if (!empty($_SESSION['adminsId'])) {
         $pagename = $page['pagename'];
         $content = $page['content'];
         $db = null;
-        echo '<h1>' . $pagename . '</h1>';
-        echo '<main>' . $content . '</main>';
+        echo '<h1 id="pageName">' . $pagename . '</h1>';
+        echo '<main id="content">' . $content . '</main>';
     } catch (Exception $e) {
         header('location:error.php');
         exit();

@@ -3,13 +3,13 @@ $title = 'Admin List';
 require_once 'header.php';
 ?>
 
-<h1>Admin List</h1>
+<h1 id="listAdmin">Admin List</h1>
 
 <?php
 require_once 'authenticate.php';
 //if not logged in display register link
 if (!empty($_SESSION['adminsId'])) {
-    echo '<a href="register.php">Create Administrator</a>';
+    echo '<a id="createAdmin" href="register.php" class="btn btn-block btn-success">Create Administrator</a>';
 }
 try {
 //connecting to database
@@ -21,7 +21,7 @@ try {
     $admins = $cmd->fetchAll();
 //if empty session only shows usernames
     if (empty($_SESSION['adminsId'])) {
-        echo '<table><thead><th>Email</th></thead>';
+        echo '<table class="table table-hover"><thead class="thead thead-dark"><th>Email</th></thead>';
         foreach ($admins as $value) {
             echo '<tr>';
             echo '<td>' . $value['username'] . '</td>';
@@ -31,13 +31,13 @@ try {
     } else
         //if session isn't empty displays edit and delete links
         if (!empty($_SESSION['adminsId'])) {
-            echo '<table><thead><th>Email</th><th>Edit</th><th>Delete</th></th></thead>';
+            echo '<table class="table table-hover"><thead class="thead thead-dark"><th>Email</th><th>Edit</th><th>Delete</th></th></thead>';
             foreach ($admins as $value) {
                 echo '<tr>';
                 echo '<td>' . $value['username'] . '</td>';
-                echo '<td><a href="admin.php?adminsId=' . $value['adminsId'] . '">Edit</a></td>';
+                echo '<td><a href="admin.php?adminsId=' . $value['adminsId'] . '" class="btn btn-info">Edit</a></td>';
                 echo '<td><a href="delete-admin.php?adminsId=' . $value['adminsId'] . '"
-            onclick="return confirmDelete();">Delete</a></td>';
+            onclick="return confirmDelete();" class="btn btn-danger">Delete</a></td>';
                 echo '</tr>';
             }
             echo '</table>';

@@ -30,16 +30,19 @@ if (!empty($_GET['adminsId'])) {
     }
 }
 ?>
-
+    <div id="editAdmin"
     <h1>Admin Information</h1>
     <form action="save-admin.php" method="post">
         <fieldset>
-            <label for="username">Username:</label>
-            <input name="username" id="username" required value="<?php echo $username; ?>"/>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input class="form-control" name="username" id="username" required value="<?php echo $username; ?>"/>
+            </div>
         </fieldset>
         <input name="adminsId" id="adminsId" value="<?php echo $adminsId; ?>" type="hidden"/>
-        <button>Save</button>
+        <button class="btn btn-primary btn-block">Save Admin</button>
     </form>
+    </div>
 <?php
 //getting footer
 require_once 'footer.php';

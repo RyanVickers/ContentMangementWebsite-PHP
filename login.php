@@ -2,8 +2,8 @@
 $title = 'Login';
 require_once 'header.php';
 ?>
-    <h1>Login</h1>
-    <a href="register.php">Register</a>
+    <div id="login">
+        <h1 id="loginHeader">Login</h1>
 <?php
 //checks for invalid login
 if (!empty($_GET['invalid'])) {
@@ -17,19 +17,25 @@ if (!empty($_GET['invalid'])) {
 }
 ?>
 
-    <form method="post" action="validation.php">
-        <fieldset>
-            <label for="username">Username:</label>
-            <input name="username" id="username" required type="email" placeholder="emailname@email.com"/>
-        </fieldset>
-        <fieldset>
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password" required/>
-        </fieldset>
-        <div>
-            <input type="submit" value="Login"/>
-        </div>
-    </form>
+        <form method="post" action="validation.php">
+            <fieldset>
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input class="form-control" name="username" id="username" required type="email"
+                           placeholder="Enter Email"/>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input class="form-control" type="password" name="password" id="password" required/>
+                </div>
+            </fieldset>
+            <div>
+                <input class="btn btn-primary btn-block" type="submit" value="Login"/>
+            </div>
+        </form>
+    </div>
 <?php
 require_once 'footer.php';
 ?>
