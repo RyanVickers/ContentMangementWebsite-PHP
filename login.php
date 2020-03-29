@@ -4,18 +4,18 @@ require_once 'header.php';
 ?>
     <div id="login">
         <h1 id="loginHeader">Login</h1>
-<?php
-//checks for invalid login
-if (!empty($_GET['invalid'])) {
-    if ($_GET['invalid'] == "true") {
-        echo '<div>Invalid Login</div>';
-    } else {
-        echo '<div>Enter Login Information</div>';
-    }
-} else {
-    echo '<div>Enter Login Information</div>';
-}
-?>
+        <?php
+        //checks for invalid login
+        if (!empty($_GET['invalid'])) {
+            if ($_GET['invalid'] == "true") {
+                echo '<div>Invalid Login</div>';
+            } else {
+                echo '<div>Enter Login Information</div>';
+            }
+        } else {
+            echo '<div>Enter Login Information</div>';
+        }
+        ?>
 
         <form method="post" action="validation.php">
             <fieldset>

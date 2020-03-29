@@ -82,6 +82,7 @@ if (!empty($_SESSION['adminsId'])) {
         $pagename = $page['pagename'];
         $content = $page['content'];
         $db = null;
+        //diplaying pagenames and content
         echo '<h1 id="pageName">' . $pagename . '</h1>';
         echo '<main id="content">' . $content . '</main>';
     } catch (Exception $e) {

@@ -31,7 +31,7 @@ if ($valid) {
         require_once 'database.php';
 
         if (empty($pagesId)) {
-
+//if no page id inserts data into database in Pageid updates database
             $sql = "INSERT INTO pages (pagename, content) VALUES (:pagename, :content)";
         } else {
             $sql = "UPDATE pages SET pagename = :pagename, content = :content WHERE pagesId = :pagesId";

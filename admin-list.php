@@ -6,6 +6,7 @@ require_once 'header.php';
 <h1 id="listAdmin">Admin List</h1>
 
 <?php
+//authentication
 require_once 'authenticate.php';
 //if not logged in display register link
 if (!empty($_SESSION['adminsId'])) {

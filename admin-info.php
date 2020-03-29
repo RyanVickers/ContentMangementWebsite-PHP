@@ -14,7 +14,7 @@ require_once 'authenticate.php';
 $username = $_POST['username'];
 //connecting to database
 try {
-
+//getting usernames from admins list
     require_once 'database.php';
     $sql = "SELECT * FROM admins WHERE username = :username";
     $cmd = $db->prepare($sql);
